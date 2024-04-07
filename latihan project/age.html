@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Kalender Umur</h1>
+        <label for="birthdate">Masukkan Tanggal Lahirmu </label>
+        <input type="date" id="birthdate">
+        <button onclick="calculateAge()">Calculate Age</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function calculateAge() {
+            const birthdateInput = document.getElementById('birthdate');
+            const resultElement = document.getElementById('result');
+            
+            if (birthdateInput.value) {
+                const today = new Date(); 
+                const birthdate = new Date(birthdateInput.value);
+
+                let ageYears = today.getFullYear() - birthdate.getFullYear();
+                let ageMonths = today.getMonth() - birthdate.getMonth();
+                let ageDays = today.getDate() - birthdate.getDate();
+
+                if (ageDays < 0) {
+                    ageMonths--;
+                    ageDays += new Date(
+                        today.getFullYear(),
+                        today.getMonth(), 
+                        0 
+                    ).getDate();
+                }
+                if (ageMonths < 0) {
+                    ageYears--;
+                    ageMonths += 12; 
+                }
+                resultElement.innerText = `Umur mu adalah ${ageYears} tahun, ${ageMonths} bulan, dan ${ageDays} hari.`; 
+                resultElement.style.color = 'blue';
+            } else {
+                resultElement.innerText = 'Please enter your birthdate.';
+                resultElement.style.color = 'red';
+
+            }
+        }
+    </script>
+</body>
+</html>
